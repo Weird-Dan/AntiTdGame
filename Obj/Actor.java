@@ -25,12 +25,14 @@ public class Actor implements Renderable {
 	 * Draw to screen
 	 * */
 	public void paint(Graphics g) {
+		
 	}
 
 	/**
 	 * Update actor
 	 * */
 	public void update() {
+		
 	}
 
 }
