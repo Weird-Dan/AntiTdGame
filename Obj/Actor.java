@@ -2,6 +2,7 @@ package game.AntiTdGame.Obj;
 
 import java.awt.Graphics;
 
+import engine.Common.Vector;
 import engine.Render.Renderable;
 
 
@@ -16,7 +17,7 @@ public class Actor implements Renderable {
 	/**
 	 * Position
 	 * */
-	float x, y;
+	Vector pos;
 	
 	double rotation;
 

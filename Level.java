@@ -16,14 +16,18 @@ public class Level implements Camera {
 	/**
 	 * Initialize Camera
 	 */
+	@Override
 	public void LoadClass(Main fm) {
 		this.mn = fm;
 		// add objects to camera mby
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
 	 * Return ArrayList of Renderable objects, used in Main, This is nessisary.
 	 */
+	@Override
 	public CopyOnWriteArrayList<Renderable> getRenderables() {
 		return this.camera;
 	}
@@ -31,14 +35,18 @@ public class Level implements Camera {
 	/**
 	 * Update Camera
 	 */
+	@Override
 	public void tick() {
+		// TODO Auto-generated method stub
 
 	}
 
 	/**
 	 * Run before Terminating Camera
 	 */
+	@Override
 	public void end() {
+		// TODO Auto-generated method stub
 
 		// add temp score to total score.
 	}
@@ -59,3 +67,4 @@ public class Level implements Camera {
 	}
 
 }
+

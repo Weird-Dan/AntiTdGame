@@ -16,21 +16,25 @@ public class Tower extends Actor {
 	/**
 	 * Draw tower
 	 */
-	public void paint(Graphics g) {
-
-	}
+	public void paint(Graphics g) {}
 
 	/**
 	 * Update tower
 	 */
-	public void update() {
+	public void update() {}
 
-	}
 
+	/**
+	 * 
+	 * */
 	public int getInterval() {
 		return interval;
 	}
 
+
+	/**
+	 * 
+	 * */
 	public void setInterval(int interval) {
 		this.interval = interval;
 	}
