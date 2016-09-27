@@ -44,9 +44,9 @@ public class Level implements Camera {
 		
 
 		cmap = new Map(this.clevel);
-		cmap.setScale(32.0);
+		cmap.setScale(1.0);
 		camera.add(this.cmap);
-		camera.add(new PathDrawer(path));
+		//camera.add(new PathDrawer(path));
 		mn.setTitle("AntiTdGame");
 
 	}
@@ -67,6 +67,7 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 		if (false)
 			end(); // change to : if (map completed)
+		cmap.setScale(cmap.getScale()+0.1);
 	}
 
 	/**

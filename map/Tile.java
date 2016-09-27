@@ -5,14 +5,15 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 	
-	BufferedImage img;
+	BufferedImage img; // tile-image
 	
-	Color clr;
+	Color clr; // default draw/fill color
 	
-	boolean walkable;
+	boolean walkable; // is walkable by units
 	
-	boolean placeable;
+	boolean placeable; //is able to hold tower
 	
+	boolean occupied; // tower is placed
 	
 	
 }

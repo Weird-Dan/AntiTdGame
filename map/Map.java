@@ -45,14 +45,17 @@ public class Map implements Renderable {
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				TileMap[x * h + y] = new Tile();
-
+				//tile = ColorMatcher.getTile(tmp.getRGB);
 				clr = tmp.getRGB(x, y);
 				red = (clr & 0x00ff0000) >> 16;
 				green = (clr & 0x0000ff00) >> 8;
 				blue = clr & 0x000000ff;
 				alpha = (clr & 0xff000000) >>> 24;
 				TileMap[x * h + y].clr = new Color(red, green, blue, alpha);
-
+				if (red==143 && green == 63 && blue == 42) {
+					TileMap[x * h + y].img = Read.readImage("Tower1.png");
+					System.out.println("Integer-color-value: "+clr);
+				}
 			}
 		}
 
@@ -63,9 +66,16 @@ public class Map implements Renderable {
 		int ox = (int) pos.getX(), oy = (int) pos.getY();
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				g.setColor(TileMap[x * h + y].clr);
-				g.fillRect((int) (ox + (x * scale)), (int) (oy + (y * scale)), (int) scale + pixelbuffer,
-						(int) scale + pixelbuffer);
+				BufferedImage img;
+				if (TileMap[x * h + y].img != null) {
+					img = TileMap[x * h + y].img;
+					g.drawImage(img.getScaledInstance((int) scale, (int) scale, BufferedImage.SCALE_DEFAULT),
+							(int) (ox + (x * scale)), (int) (oy + (y * scale)), null);
+				} else {
+					g.setColor(TileMap[x * h + y].clr);
+					g.fillRect((int) (ox + (x * scale)), (int) (oy + (y * scale)), (int) scale + pixelbuffer,
+							(int) scale + pixelbuffer);
+				}
 			}
 		}
 	}
