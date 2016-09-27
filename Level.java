@@ -6,6 +6,7 @@ import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Obj.Unit;
+import game.AntiTdGame.map.Map;
 
 public class Level implements Camera {
 
@@ -13,14 +14,23 @@ public class Level implements Camera {
 
 	Main mn;
 
+	Map cmap;
+
+	String clevel = "TextureTiles.png";
+
 	/**
 	 * Initialize Camera
 	 */
 	@Override
 	public void LoadClass(Main fm) {
 		this.mn = fm;
+		// if (clevel==null) this.clevel = "game/AntiTdGame/res/Map1.png";
 		// add objects to camera mby
-		// TODO Auto-generated method stub
+
+		cmap = new Map(this.clevel);
+		camera.add(this.cmap);
+
+		mn.setTitle("AntiTdGame");
 
 	}
 
@@ -38,7 +48,9 @@ public class Level implements Camera {
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-
+		if (false)
+			end(); // change to : if (map completed)
+		cmap.setScale(cmap.getScale() + 0.01);
 	}
 
 	/**
@@ -46,7 +58,7 @@ public class Level implements Camera {
 	 */
 	@Override
 	public void end() {
-		// TODO Auto-generated method stub
+		// calculate score
 
 		// add temp score to total score.
 	}
@@ -61,10 +73,9 @@ public class Level implements Camera {
 
 	/**
 	 * return the unit closest to the given x, y coordinates
-	 * */
+	 */
 	public Unit getClosestUnit(float x, float y) {
 		return null;
 	}
 
 }
-

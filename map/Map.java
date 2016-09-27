@@ -14,46 +14,48 @@ public class Map implements Renderable {
 
 	private final String mapPath;
 
-	double scale;
+	double scale = 1.0;
 
-	Vector pos;
+	Vector pos = new Vector(0, 0);
 
-	int w, h;
+	int w, h, pixelbuffer = 1;
 
 	public Map(String mapPath) {
 		this.mapPath = mapPath;
-		generateMap();
+		generateMap(this.mapPath);
 	}
 
-	public void generateMap() {
-		BufferedImage tmp = Read.readImage(mapPath); // get image
-		// get colorModels
+	public void generateMap(String MapPath) {
+		BufferedImage tmp = Read.readImage(MapPath); // get image
+
+		if (tmp == null) {
+			System.out.println("Could Not Load Map!");
+			return;
+		}
 
 		int clr;
 		int red;
 		int green;
 		int blue;
+		int alpha;
 
 		this.w = tmp.getWidth();
 		this.h = tmp.getHeight();
-		InitTileMap(w * h); // init tilemap
+		TileMap = new Tile[w * h];
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				TileMap[x * y] = new Tile();
+				TileMap[x * h + y] = new Tile();
 
 				clr = tmp.getRGB(x, y);
 				red = (clr & 0x00ff0000) >> 16;
 				green = (clr & 0x0000ff00) >> 8;
 				blue = clr & 0x000000ff;
-				TileMap[x * y].clr = new Color(red, green, blue);
+				alpha = (clr & 0xff000000) >>> 24;
+				TileMap[x * h + y].clr = new Color(red, green, blue, alpha);
 
 			}
 		}
 
-	}
-
-	protected void InitTileMap(int size) {
-		TileMap = new Tile[size];
 	}
 
 	@Override
@@ -61,7 +63,9 @@ public class Map implements Renderable {
 		int ox = (int) pos.getX(), oy = (int) pos.getY();
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				g.fillRect((int) (ox + (x * scale)), (int) (oy + (y * scale)), (int) scale, (int) scale);
+				g.setColor(TileMap[x * h + y].clr);
+				g.fillRect((int) (ox + (x * scale)), (int) (oy + (y * scale)), (int) scale + pixelbuffer,
+						(int) scale + pixelbuffer);
 			}
 		}
 	}
