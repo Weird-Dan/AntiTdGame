@@ -8,8 +8,12 @@ import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
 import game.AntiTdGame.Obj.Unit;
+<<<<<<< HEAD
 import game.AntiTdGame.Util.Path;
 import engine.Common.Vector;
+=======
+import game.AntiTdGame.map.Map;
+>>>>>>> origin/master
 
 public class Level implements Camera {
 
@@ -18,13 +22,19 @@ public class Level implements Camera {
 
 	Main mn;
 
+	Map cmap;
+
+	String clevel = "TextureTiles.png";
+
 	/**
 	 * Initialize Camera
 	 */
 	@Override
 	public void LoadClass(Main fm) {
 		this.mn = fm;
+		// if (clevel==null) this.clevel = "game/AntiTdGame/res/Map1.png";
 		// add objects to camera mby
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		ArrayList<Vector> nodes = new ArrayList<Vector>();
 		nodes.add(new Vector(200,200));
@@ -36,6 +46,14 @@ public class Level implements Camera {
 		path = new Path(nodes);
 		
 		camera.add(new PathDrawer(path));
+=======
+
+		cmap = new Map(this.clevel);
+		camera.add(this.cmap);
+
+		mn.setTitle("AntiTdGame");
+
+>>>>>>> origin/master
 	}
 
 	/**
@@ -52,7 +70,9 @@ public class Level implements Camera {
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-
+		if (false)
+			end(); // change to : if (map completed)
+		cmap.setScale(cmap.getScale() + 0.01);
 	}
 
 	/**
@@ -60,7 +80,7 @@ public class Level implements Camera {
 	 */
 	@Override
 	public void end() {
-		// TODO Auto-generated method stub
+		// calculate score
 
 		// add temp score to total score.
 	}
@@ -75,10 +95,9 @@ public class Level implements Camera {
 
 	/**
 	 * return the unit closest to the given x, y coordinates
-	 * */
+	 */
 	public Unit getClosestUnit(float x, float y) {
 		return null;
 	}
 
 }
-
