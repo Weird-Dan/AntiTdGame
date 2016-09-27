@@ -1,15 +1,20 @@
 package game.AntiTdGame;
 
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
+import game.AntiTdGame.Debug.PathDrawer;
 import game.AntiTdGame.Obj.Unit;
+import game.AntiTdGame.Util.Path;
+import engine.Common.Vector;
 
 public class Level implements Camera {
 
 	private CopyOnWriteArrayList<Renderable> camera = new CopyOnWriteArrayList<Renderable>();
+	public Path path;
 
 	Main mn;
 
@@ -21,7 +26,16 @@ public class Level implements Camera {
 		this.mn = fm;
 		// add objects to camera mby
 		// TODO Auto-generated method stub
-
+		ArrayList<Vector> nodes = new ArrayList<Vector>();
+		nodes.add(new Vector(200,200));
+		nodes.add(new Vector(250,200));
+		nodes.add(new Vector(250,300));
+		nodes.add(new Vector(400,300));
+		nodes.add(new Vector(400,200));
+		nodes.add(new Vector(500,200));
+		path = new Path(nodes);
+		
+		camera.add(new PathDrawer(path));
 	}
 
 	/**
