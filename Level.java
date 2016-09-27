@@ -24,7 +24,7 @@ public class Level implements Camera {
 
 	Map cmap;
 
-	String clevel = "TextureTiles.png";
+	String clevel = "Map1.png";
 
 	/**
 	 * Initialize Camera
@@ -49,6 +49,7 @@ public class Level implements Camera {
 =======
 
 		cmap = new Map(this.clevel);
+		cmap.setScale(32.0);
 		camera.add(this.cmap);
 
 		mn.setTitle("AntiTdGame");
@@ -72,7 +73,6 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 		if (false)
 			end(); // change to : if (map completed)
-		cmap.setScale(cmap.getScale() + 0.01);
 	}
 
 	/**
