@@ -23,12 +23,15 @@ public class PathDrawer implements Renderable {
 		}
 		Vector v = path.getPositionAtLength((int)length);
 		g.drawOval((int)v.getX()-16, (int)v.getY()-16, 32, 32);
+		g.drawString("("+v.getX()+", "+v.getY()+") " + length, 16, 16);
 	}
 
 	@Override
 	public void update() {
-		length+= 1;
-
+		length+= 2;
+		if(length >= path.getLength()){
+			length = 0;
+		}
 	}
 
 }

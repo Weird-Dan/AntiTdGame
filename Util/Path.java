@@ -19,26 +19,26 @@ public class Path {
 		double deltaX = 0;
 		double deltaY = 0;
 		double dist = 0;
-		while(dist <= length && i < nodes.size() -1){
-			dist += distance(nodes.get(i), nodes.get(i+1));
-			x = nodes.get(i).getX();
-			y = nodes.get(i).getY();
-			deltaX = nodes.get(i).getX() - nodes.get(i+1).getX();
-			deltaY = nodes.get(i).getY() - nodes.get(i+1).getY();
+		while(dist <= length && i < nodes.size()-1){
+			x = nodes.get(i+1).getX();
+			y = nodes.get(i+1).getY();
+			deltaX = nodes.get(i+1).getX() - nodes.get(i).getX();
+			deltaY = nodes.get(i+1).getY() - nodes.get(i).getY();
+			dist += Math.abs(deltaX) + Math.abs(deltaY);
 			i++;
 		}
 		
 		if(deltaX < 0){
-			y += dist - length;
-		}
-		else if(deltaX > 0){
-			y -= dist - length;
-		}
-		if(deltaY < 0){
 			x += dist - length;
 		}
-		else if(deltaY > 0){
+		else if(deltaX > 0){
 			x -= dist - length;
+		}
+		if(deltaY < 0){
+			y += dist - length;
+		}
+		else if(deltaY > 0){
+			y -= dist - length;
 		}
 		
 		return new Vector(x, y);
@@ -59,5 +59,22 @@ public class Path {
 	
 	public Vector getNode(int index){
 		return nodes.get(index);
+	}
+	
+	public double getLength(){
+		double x = 0;
+		double y = 0;
+		double deltaX = 0;
+		double deltaY = 0;
+		double dist = 0;
+		for(int i = 0; i < nodes.size() - 1; i++){
+			x = nodes.get(i+1).getX();
+			y = nodes.get(i+1).getY();
+			deltaX = nodes.get(i+1).getX() - nodes.get(i).getX();
+			deltaY = nodes.get(i+1).getY() - nodes.get(i).getY();
+			dist += Math.abs(deltaX) + Math.abs(deltaY);
+		}
+		
+		return dist;
 	}
 }
