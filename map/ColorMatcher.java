@@ -16,7 +16,7 @@ public class ColorMatcher {
 	 */
 	public ColorMatcher() {
 		// add coralate images
-		csmap.put(-7389398, "Tower1.png");
+		csmap.put(-7389398, "src/game/AntiTdGame/res/Tower1.png");
 	}
 
 	/**

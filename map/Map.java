@@ -53,7 +53,7 @@ public class Map implements Renderable {
 				alpha = (clr & 0xff000000) >>> 24;
 				TileMap[x * h + y].clr = new Color(red, green, blue, alpha);
 				if (red==143 && green == 63 && blue == 42) {
-					TileMap[x * h + y].img = Read.readImage("Tower1.png");
+					TileMap[x * h + y].img = Read.readImage("src/game/AntiTdGame/res/Tower1.png");
 					System.out.println("Integer-color-value: "+clr);
 				}
 			}
