@@ -34,20 +34,19 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 		ArrayList<Vector> nodes = new ArrayList<Vector>();
 		nodes.add(new Vector(200, 200));
-		nodes.add(new Vector(250, 200));
-		nodes.add(new Vector(250, 300));
-		nodes.add(new Vector(400, 300));
-		nodes.add(new Vector(400, 200));
-		nodes.add(new Vector(500, 200));
+		nodes.add(new Vector(210, 200));
+		nodes.add(new Vector(210, 210));
+		nodes.add(new Vector(200, 210));
+		nodes.add(new Vector(200, 200));
 		path = new Path(nodes);
 
-		
-
 		cmap = new Map(this.clevel);
-		cmap.setScale(1.0);
+		cmap.setScale(32);
 		camera.add(this.cmap);
 		//camera.add(new PathDrawer(path));
 		mn.setTitle("AntiTdGame");
+
+		camera.add(new PathDrawer(path));
 
 	}
 
@@ -67,7 +66,7 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 		if (false)
 			end(); // change to : if (map completed)
-		cmap.setScale(cmap.getScale()+0.1);
+		//cmap.setScale(cmap.getScale());
 	}
 
 	/**
@@ -94,5 +93,12 @@ public class Level implements Camera {
 	public Unit getClosestUnit(float x, float y) {
 		return null;
 	}
-
+	
+	public void addToLevel(Renderable r){
+		camera.add(r);
+	}
+	
+	public void removeFromLevel(Renderable r){
+		camera.remove(r);
+	}
 }

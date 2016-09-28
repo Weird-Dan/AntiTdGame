@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import engine.Common.Vector;
 import engine.Render.Renderable;
+import game.AntiTdGame.Level;
 
 
 /**
@@ -11,8 +12,9 @@ import engine.Render.Renderable;
  * */
 public class Actor implements Renderable {
 
-	
 	int health, damage;
+	
+	Level level;
 	
 	/**
 	 * Position
@@ -20,6 +22,14 @@ public class Actor implements Renderable {
 	Vector pos;
 	
 	double rotation;
+	
+	double fireRate;
+	
+	int Range;
+	
+	Actor target;
+	
+	//Projectile projectile;
 
 	/**
 	 * Draw to screen
@@ -33,6 +43,30 @@ public class Actor implements Renderable {
 	 * */
 	public void update() {
 		
+	}
+	
+	/*
+	 * Shoot a projectile at the target
+	 */
+	public void shoot() {
+		
+	}
+	
+	/*
+	 * Subtract dmg from damage and check if the health is less than or equal to 0.
+	 */
+	public void takeDamage(int dmg) {
+		damage -= dmg;
+		if(damage <= 0){
+			explode();
+		}
+	}
+	
+	/*
+	 * Blow stuff up when they die!!
+	 */
+	void explode(){
+		level.removeFromLevel(this);
 	}
 
 }
