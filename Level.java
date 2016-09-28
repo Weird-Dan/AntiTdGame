@@ -11,6 +11,7 @@ import game.AntiTdGame.Obj.Unit;
 import game.AntiTdGame.Util.Path;
 import engine.Common.Vector;
 import game.AntiTdGame.map.Map;
+import game.AntiTdGame.Util.PathLoader;;
 
 public class Level implements Camera {
 
@@ -21,7 +22,9 @@ public class Level implements Camera {
 
 	Map cmap;
 
-	String clevel = "Map1.png";
+	String clevel = "src/game/AntiTdGame/res/Map1.png";
+	
+	PathLoader pl = new PathLoader();
 
 	/**
 	 * Initialize Camera
@@ -32,19 +35,14 @@ public class Level implements Camera {
 		// if (clevel==null) this.clevel = "game/AntiTdGame/res/Map1.png";
 		// add objects to camera mby
 		// TODO Auto-generated method stub
-		ArrayList<Vector> nodes = new ArrayList<Vector>();
-		nodes.add(new Vector(200, 200));
-		nodes.add(new Vector(210, 200));
-		nodes.add(new Vector(210, 210));
-		nodes.add(new Vector(200, 210));
-		nodes.add(new Vector(200, 200));
-		path = new Path(nodes);
 
 		cmap = new Map(this.clevel);
 		cmap.setScale(32);
 		camera.add(this.cmap);
 		//camera.add(new PathDrawer(path));
 		mn.setTitle("AntiTdGame");
+		
+		path = pl.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
 
 		camera.add(new PathDrawer(path));
 
