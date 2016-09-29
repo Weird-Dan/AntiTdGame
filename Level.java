@@ -26,9 +26,9 @@ public class Level implements Camera {
 	Map cmap;
 
 	String clevel = "src/game/AntiTdGame/res/Map1.png";
-	
+
 	public double scale = 32;
-	
+
 	PathLoader pl = new PathLoader();
 	ArrayList<Unit> units = new ArrayList<Unit>();
 
@@ -42,21 +42,21 @@ public class Level implements Camera {
 		// add objects to camera mby
 		// TODO Auto-generated method stub
 
-		cmap = new Map(this.clevel);
+		cmap = new Map(this.clevel, scale);
 		cmap.setScale(scale);
 		camera.add(this.cmap);
 		mn.setTitle("AntiTdGame");
-		
+
 		path = pl.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
 
-		//camera.add(new PathDrawer(path));
-		
+		// camera.add(new PathDrawer(path));
+
 		Unit u = new Unit();
 		u.path = path;
 		u.setLevel(this);
 		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
 		SpawnUnit(u);
-		
+
 		Tower t = new Tower();
 		t.setLevel(this);
 		t.setRange(3);
@@ -82,7 +82,7 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 		if (false)
 			end(); // change to : if (map completed)
-		//cmap.setScale(cmap.getScale());
+		// cmap.setScale(cmap.getScale());
 	}
 
 	/**
@@ -109,21 +109,21 @@ public class Level implements Camera {
 	public Unit getClosestUnit(float x, float y) {
 		return null;
 	}
-	
-	public void addToLevel(Renderable r){
+
+	public void addToLevel(Renderable r) {
 		camera.add(r);
 	}
-	
-	public void removeFromLevel(Renderable r){
+
+	public void removeFromLevel(Renderable r) {
 		camera.remove(r);
 	}
-	
-	public void SpawnUnit(Unit u){
+
+	public void SpawnUnit(Unit u) {
 		addToLevel(u);
 		units.add(u);
 	}
-	
-	public void KillUnit(Unit u){
+
+	public void KillUnit(Unit u) {
 		removeFromLevel(u);
 		units.remove(u);
 	}

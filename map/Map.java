@@ -22,8 +22,9 @@ public class Map implements Renderable {
 
 	ColorMatcher cm = new ColorMatcher();
 
-	public Map(String mapPath) {
+	public Map(String mapPath, double scale) {
 		this.mapPath = mapPath;
+		this.scale = scale;
 		generateMap(this.mapPath);
 	}
 
@@ -54,12 +55,14 @@ public class Map implements Renderable {
 				blue = clr & 0x000000ff;
 				alpha = (clr & 0xff000000) >>> 24;
 				TileMap[x * h + y].clr = new Color(red, green, blue, alpha);
-				TileMap[x * h + y].img = cm.getImage(clr);
-				/*System.out.println("Integer-color-value: " + clr + " at x:" + x + " y:" + y);
-				if (red == 143 && green == 63 && blue == 42) {
-					TileMap[x * h + y].img = Read.readImage("src/game/AntiTdGame/res/Placable.png");
-					System.out.println("Integer-color-value: " + clr);
-				}*/
+				TileMap[x * h + y].img = cm.getScaledImage(clr, (int) scale);
+				/*
+				 * System.out.println("Integer-color-value: " + clr + " at x:" +
+				 * x + " y:" + y); if (red == 143 && green == 63 && blue == 42)
+				 * { TileMap[x * h + y].img =
+				 * Read.readImage("src/game/AntiTdGame/res/Placable.png");
+				 * System.out.println("Integer-color-value: " + clr); }
+				 */
 			}
 		}
 
@@ -73,8 +76,7 @@ public class Map implements Renderable {
 				BufferedImage img;
 				if (TileMap[x * h + y].img != null) {
 					img = TileMap[x * h + y].img;
-					g.drawImage(img.getScaledInstance((int) scale, (int) scale, BufferedImage.SCALE_DEFAULT),
-							(int) (ox + (x * scale)), (int) (oy + (y * scale)), null);
+					g.drawImage(img, (int) (ox + (x * scale)), (int) (oy + (y * scale)), null);
 				} else {
 					g.setColor(TileMap[x * h + y].clr);
 					g.fillRect((int) (ox + (x * scale)), (int) (oy + (y * scale)), (int) scale + pixelbuffer,
