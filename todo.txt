@@ -1,0 +1,13 @@
+- List of items
+- Put selected in new list
+- Display names of units
+- Moneysystem
+
+Variabler:
+- int money
+- string names
+- int unitCost
+
+method that creates unit objects and adds them to list. Also gives them abilities.
+
+Add objects to list, add to array if coresponding money is valid
