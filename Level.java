@@ -51,6 +51,12 @@ public class Level implements Camera {
 
 		//camera.add(new PathDrawer(path));
 		
+		Unit u = new Unit();
+		u.path = path;
+		u.setLevel(this);
+		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		SpawnUnit(u);
+		
 		Tower t = new Tower();
 		t.setLevel(this);
 		t.setRange(3);
@@ -58,12 +64,6 @@ public class Level implements Camera {
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
 		t.setLaserColor(Color.green);
 		camera.add(t);
-		
-		Unit u = new Unit();
-		u.path = path;
-		u.setLevel(this);
-		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
-		SpawnUnit(u);
 	}
 
 	/**
