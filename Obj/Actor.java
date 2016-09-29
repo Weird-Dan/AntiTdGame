@@ -10,65 +10,73 @@ import game.AntiTdGame.Level;
 import game.AntiTdGame.Obj.Laser;
 import game.AntiTdGame.Util.MathStuff;
 
-
 /**
  * @autor Weird-Dan
- * */
+ */
 public class Actor implements Renderable {
 
-	double health = 100, damage = 5;
-	
+	final double SH = 100;
+	double health = SH, damage = 3;
+
 	Level level;
-	
+
 	/**
 	 * Position
-	 * */
+	 */
 	Vector pos;
-	
+
 	double rotation;
-	
-	int fireRate = 60;
+
+	int fireRate = 30;
 	int fire;
-	
+
 	double Range;
-	
+
 	Actor target;
-	
+
 	BufferedImage sprite;
 	Color laserColor;
-	
-	
-	//Projectile projectile;
+
+	// Projectile projectile;
 
 	/**
 	 * Draw to screen
-	 * */
+	 */
 	public void paint(Graphics g) {
 		g.drawImage(sprite.getScaledInstance((int) level.scale, (int) level.scale, BufferedImage.SCALE_DEFAULT),
 				(int) (pos.getX() - level.scale / 2), (int) (pos.getY() - level.scale / 2), null);
-		
-		int x = (int)(pos.getX() - level.scale / 2);
-		int y = (int)(pos.getY() - level.scale / 2 - 8);
 
+<<<<<<< Updated upstream
 		g.setColor(Color.red);
 		g.fillRect(x, y, (int)(level.scale), (int)(level.scale/8));
 		g.setColor(Color.green);
 		g.fillRect(x, y, (int)(level.scale * health / 100), (int)(level.scale/8));
+=======
+		if (health != SH) {
+			int x = (int) (pos.getX() - level.scale / 2);
+			int y = (int) (pos.getY() - level.scale / 2 - 8);
+
+			g.setColor(Color.red);
+			g.fillRect(x, y, (int) (level.scale), 4);
+			g.setColor(Color.green);
+			g.fillRect(x, y, (int) (level.scale * health / 100), 4);
+		}
+>>>>>>> Stashed changes
 	}
 
 	/**
 	 * Update actor
-	 * */
+	 */
 	public void update() {
-		if(target != null && MathStuff.distance(pos, target.pos) <= this.Range && level.getUnits().contains(target)){
+		if (target != null && MathStuff.distance(pos, target.pos) <= this.Range && level.getUnits().contains(target)) {
 			fire++;
-			if(fire >= fireRate){
+			if (fire >= fireRate) {
 				fire = 0;
 				shoot();
 			}
 		}
 	}
-	
+
 	/*
 	 * Shoot a projectile at the target
 	 */
@@ -76,25 +84,26 @@ public class Actor implements Renderable {
 		Laser l = new Laser(target, pos, damage, level, laserColor);
 		level.addToLevel(l);
 	}
-	
+
 	/*
-	 * Subtract dmg from damage and check if the health is less than or equal to 0.
+	 * Subtract dmg from damage and check if the health is less than or equal to
+	 * 0.
 	 */
 	public void takeDamage(double dmg) {
 		health -= dmg;
-		if(health <= 0){
+		if (health <= 0) {
 			explode();
 		}
 	}
-	
+
 	/*
 	 * Blow stuff up when they die!!
 	 */
-	void explode(){
+	void explode() {
 		level.removeFromLevel(this);
 	}
-	
-	public void setLevel(Level l){
+
+	public void setLevel(Level l) {
 		level = l;
 	}
 
@@ -106,7 +115,8 @@ public class Actor implements Renderable {
 	}
 
 	/**
-	 * @param sprite the sprite to set
+	 * @param sprite
+	 *            the sprite to set
 	 */
 	public void setSprite(BufferedImage sprite) {
 		this.sprite = sprite;
@@ -120,7 +130,8 @@ public class Actor implements Renderable {
 	}
 
 	/**
-	 * @param range the range to set
+	 * @param range
+	 *            the range to set
 	 */
 	public void setRange(double range) {
 		Range = range * level.scale;
@@ -134,7 +145,8 @@ public class Actor implements Renderable {
 	}
 
 	/**
-	 * @param damage the damage to set
+	 * @param damage
+	 *            the damage to set
 	 */
 	public void setDamage(double damage) {
 		this.damage = damage;
@@ -148,7 +160,8 @@ public class Actor implements Renderable {
 	}
 
 	/**
-	 * @param pos the pos to set
+	 * @param pos
+	 *            the pos to set
 	 */
 	public void setPos(Vector pos) {
 		this.pos = pos;
@@ -162,7 +175,8 @@ public class Actor implements Renderable {
 	}
 
 	/**
-	 * @param target the target to set
+	 * @param target
+	 *            the target to set
 	 */
 	public void setTarget(Actor target) {
 		this.target = target;
@@ -176,9 +190,11 @@ public class Actor implements Renderable {
 	}
 
 	/**
-	 * @param laserColor the laserColor to set
+	 * @param laserColor
+	 *            the laserColor to set
 	 */
 	public void setLaserColor(Color laserColor) {
 		this.laserColor = laserColor;
 	}
+
 }
