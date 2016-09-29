@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
+import game.AntiTdGame.Debug.PathDrawer;
 import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
 import game.AntiTdGame.Util.Path;
@@ -62,8 +63,6 @@ public class Level implements Camera {
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
 		t.setLaserColor(Color.green);
 		camera.add(t);
-		
-<<<<<<< Updated upstream
 
 		Unit u = new Unit();
 		u.path = path;
@@ -71,15 +70,7 @@ public class Level implements Camera {
 		u.setSpeed(5);
 		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
 		SpawnUnit(u);
-=======
-		Unit u = new Unit();
-		u.path = path;
-		u.setLevel(this);
-		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
-		SpawnUnit(u);
 
-		
->>>>>>> Stashed changes
 	}
 
 	/**
