@@ -16,7 +16,11 @@ public class ColorMatcher {
 	 */
 	public ColorMatcher() {
 		// add coralate images
-		csmap.put(-7389398, "src/game/AntiTdGame/res/Tower1.png");
+		csmap.put(-7389398, "src/game/AntiTdGame/res/Placable.png");
+		csmap.put(-5197658, "src/game/AntiTdGame/res/walk.png");
+		csmap.put(-14342875, "src/game/AntiTdGame/res/NoTile.png");
+		csmap.put(-16711936, "src/game/AntiTdGame/res/Spawn.png");
+		csmap.put(-16776961, "src/game/AntiTdGame/res/goal.png");
 	}
 
 	/**

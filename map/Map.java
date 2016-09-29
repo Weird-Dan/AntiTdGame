@@ -20,6 +20,8 @@ public class Map implements Renderable {
 
 	int w, h, pixelbuffer = 1;
 
+	ColorMatcher cm = new ColorMatcher();
+
 	public Map(String mapPath) {
 		this.mapPath = mapPath;
 		generateMap(this.mapPath);
@@ -45,17 +47,19 @@ public class Map implements Renderable {
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				TileMap[x * h + y] = new Tile();
-				//tile = ColorMatcher.getTile(tmp.getRGB);
+				// tile = ColorMatcher.getTile(tmp.getRGB);
 				clr = tmp.getRGB(x, y);
 				red = (clr & 0x00ff0000) >> 16;
 				green = (clr & 0x0000ff00) >> 8;
 				blue = clr & 0x000000ff;
 				alpha = (clr & 0xff000000) >>> 24;
 				TileMap[x * h + y].clr = new Color(red, green, blue, alpha);
-				if (red==143 && green == 63 && blue == 42) {
-					TileMap[x * h + y].img = Read.readImage("src/game/AntiTdGame/res/Tower1.png");
-					System.out.println("Integer-color-value: "+clr);
-				}
+				TileMap[x * h + y].img = cm.getImage(clr);
+				/*System.out.println("Integer-color-value: " + clr + " at x:" + x + " y:" + y);
+				if (red == 143 && green == 63 && blue == 42) {
+					TileMap[x * h + y].img = Read.readImage("src/game/AntiTdGame/res/Placable.png");
+					System.out.println("Integer-color-value: " + clr);
+				}*/
 			}
 		}
 
