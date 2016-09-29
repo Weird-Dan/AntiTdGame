@@ -9,6 +9,7 @@ import game.AntiTdGame.Level;
 public class Laser extends Projectile {
 
 	final long ct;
+	int lifetime = 400;
 	private Color color;
 
 	public Laser(Actor a, Vector pos, double damage, Level level, Color color) {
@@ -26,7 +27,7 @@ public class Laser extends Projectile {
 	}
 
 	public void update() {
-		if (getLifetime() > 100) {
+		if (getLifetime() > lifetime) {
 			target.takeDamage(dmg);
 			level.removeFromLevel(this);
 		}

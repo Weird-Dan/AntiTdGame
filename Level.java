@@ -7,7 +7,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
-import game.AntiTdGame.Debug.PathDrawer;
 import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
 import game.AntiTdGame.Util.Path;
@@ -30,7 +29,6 @@ public class Level implements Camera {
 
 	public double scale = 48;
 
-	PathLoader pl = new PathLoader();
 	ArrayList<Unit> units = new ArrayList<Unit>();
 
 	/**
@@ -47,10 +45,11 @@ public class Level implements Camera {
 
 		cmap = new Map(this.clevel, scale);
 		cmap.setScale(scale);
+		mn.setScale(2);
 		camera.add(this.cmap);
 		mn.setTitle("AntiTdGame");
 
-		path = pl.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
+		path = PathLoader.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
 
 		if(debug) {
 			camera.add(new PathDrawer(path));
@@ -64,6 +63,7 @@ public class Level implements Camera {
 		t.setLaserColor(Color.green);
 		camera.add(t);
 		
+<<<<<<< Updated upstream
 
 		Unit u = new Unit();
 		u.path = path;
@@ -71,6 +71,15 @@ public class Level implements Camera {
 		u.setSpeed(5);
 		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
 		SpawnUnit(u);
+=======
+		Unit u = new Unit();
+		u.path = path;
+		u.setLevel(this);
+		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
+		SpawnUnit(u);
+
+		
+>>>>>>> Stashed changes
 	}
 
 	/**
