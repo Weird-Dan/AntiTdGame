@@ -18,11 +18,6 @@ public class Tower extends Actor {
 	public void paint(Graphics g) {
 		g.drawImage(sprite.getScaledInstance((int) level.scale / 2, (int) level.scale / 2, BufferedImage.SCALE_DEFAULT),
 				(int) (pos.getX() - level.scale / 4), (int) (pos.getY() - level.scale / 4), null);
-		
-		if(shooting){
-			g.setColor(Color.green);
-			g.drawLine((int)pos.getX(), (int)pos.getY(), (int)target.pos.getX(), (int)target.pos.getY());
-		}
 	}
 
 	/**

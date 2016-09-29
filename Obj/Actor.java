@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import engine.Common.Vector;
 import engine.Render.Renderable;
 import game.AntiTdGame.Level;
+import game.AntiTdGame.Obj.Laser;
 
 
 /**
@@ -14,7 +15,7 @@ import game.AntiTdGame.Level;
  * */
 public class Actor implements Renderable {
 
-	int health, damage;
+	double health = 100, damage = 5;
 	
 	Level level;
 	
@@ -33,7 +34,6 @@ public class Actor implements Renderable {
 	
 	BufferedImage sprite;
 	
-	boolean shooting;
 	
 	//Projectile projectile;
 
@@ -56,16 +56,16 @@ public class Actor implements Renderable {
 	 * Shoot a projectile at the target
 	 */
 	public void shoot() {
-		shooting = true;
-		//target.takeDamage(1);
+		Laser l = new Laser(target, pos, damage, level);
+		level.addToLevel(l);
 	}
 	
 	/*
 	 * Subtract dmg from damage and check if the health is less than or equal to 0.
 	 */
-	public void takeDamage(int dmg) {
-		damage -= dmg;
-		if(damage <= 0){
+	public void takeDamage(double dmg) {
+		health -= dmg;
+		if(health <= 0){
 			explode();
 		}
 	}
@@ -112,14 +112,14 @@ public class Actor implements Renderable {
 	/**
 	 * @return the damage
 	 */
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 
 	/**
 	 * @param damage the damage to set
 	 */
-	public void setDamage(int damage) {
+	public void setDamage(double damage) {
 		this.damage = damage;
 	}
 

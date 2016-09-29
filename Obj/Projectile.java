@@ -14,7 +14,7 @@ public abstract class Projectile implements Renderable {
 	
 	Level level;
 	
-	int dmg;
+	double dmg;
 
 	@Override
 	public void paint(Graphics g) {

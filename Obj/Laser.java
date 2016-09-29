@@ -10,7 +10,7 @@ public class Laser extends Projectile {
 
 	final long ct;
 
-	public Laser(Actor a, Vector pos, int damage, Level level) {
+	public Laser(Actor a, Vector pos, double damage, Level level) {
 		this.target = a;
 		this.pos = pos;
 		this.dmg = damage;
@@ -24,8 +24,9 @@ public class Laser extends Projectile {
 	}
 
 	public void update() {
-		if (getLifetime() > 900) {
-			// die, damage unit
+		if (getLifetime() > 10) {
+			target.takeDamage(dmg);
+			level.removeFromLevel(this);
 		}
 	}
 
