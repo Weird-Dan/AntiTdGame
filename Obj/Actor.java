@@ -46,6 +46,14 @@ public class Actor implements Renderable {
 	public void paint(Graphics g) {
 		g.drawImage(sprite.getScaledInstance((int) level.scale, (int) level.scale, BufferedImage.SCALE_DEFAULT),
 				(int) (pos.getX() - level.scale / 2), (int) (pos.getY() - level.scale / 2), null);
+		
+		int x = (int)(pos.getX() - level.scale / 2);
+		int y = (int)(pos.getY() - level.scale / 2 - 8);
+
+		g.setColor(Color.red);
+		g.fillRect(x, y, (int)(level.scale), 4);
+		g.setColor(Color.green);
+		g.fillRect(x, y, (int)(level.scale * health / 100), 4);
 	}
 
 	/**
