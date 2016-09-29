@@ -26,6 +26,7 @@ public class Level implements Camera {
 	Map cmap;
 
 	String clevel = "src/game/AntiTdGame/res/Map1.png";
+	boolean debug;
 
 	public double scale = 48;
 
@@ -51,11 +52,13 @@ public class Level implements Camera {
 
 		path = pl.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
 
-		// camera.add(new PathDrawer(path));
+		if(debug) {
+			camera.add(new PathDrawer(path));
+		}
 
 		Tower t = new Tower();
 		t.setLevel(this);
-		t.setRange(3);
+		t.setRange(10);
 		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
 		t.setLaserColor(Color.green);
