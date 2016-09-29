@@ -1,34 +1,45 @@
 package game.AntiTdGame.Obj;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import game.AntiTdGame.Util.MathStuff;
 
 public class Tower extends Actor {
-
-	int range;
-
-	Unit target;
 
 	/**
 	 * Fire-interval of tower (default is 60)
 	 * */
-	private int interval = 60;
 
 	/**
 	 * Draw tower
 	 */
-	public void paint(Graphics g) {}
+	public void paint(Graphics g) {
+		g.drawImage(sprite.getScaledInstance((int) level.scale / 2, (int) level.scale / 2, BufferedImage.SCALE_DEFAULT),
+				(int) (pos.getX() - level.scale / 4), (int) (pos.getY() - level.scale / 4), null);
+		
+		if(shooting){
+			g.setColor(Color.green);
+			g.drawLine((int)pos.getX(), (int)pos.getY(), (int)target.pos.getX(), (int)target.pos.getY());
+		}
+	}
 
 	/**
 	 * Update tower
 	 */
-	public void update() {}
+	public void update() {
+		if(MathStuff.distance(pos, target.pos) <= this.Range){
+			shoot();
+		}
+	}
 
 
 	/**
 	 * 
 	 * */
 	public int getInterval() {
-		return interval;
+		return this.fireRate;
 	}
 
 
@@ -36,7 +47,7 @@ public class Tower extends Actor {
 	 * 
 	 * */
 	public void setInterval(int interval) {
-		this.interval = interval;
+		this.fireRate = interval;
 	}
 
 }

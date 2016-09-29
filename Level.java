@@ -7,9 +7,11 @@ import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
+import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
 import game.AntiTdGame.Util.Path;
 import engine.Common.Vector;
+import engine.ReadWrite.Read;
 import game.AntiTdGame.map.Map;
 import game.AntiTdGame.Util.PathLoader;;
 
@@ -24,6 +26,8 @@ public class Level implements Camera {
 
 	String clevel = "src/game/AntiTdGame/res/Map1.png";
 	
+	public double scale = 32;
+	
 	PathLoader pl = new PathLoader();
 
 	/**
@@ -37,15 +41,28 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 
 		cmap = new Map(this.clevel);
-		cmap.setScale(32);
+		cmap.setScale(16);
 		camera.add(this.cmap);
 		//camera.add(new PathDrawer(path));
 		mn.setTitle("AntiTdGame");
 		
 		path = pl.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
 
-		camera.add(new PathDrawer(path));
-
+		//camera.add(new PathDrawer(path));
+		
+		Unit u = new Unit();
+		u.path = path;
+		u.setLevel(this);
+		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		camera.add(u);
+		
+		Tower t = new Tower();
+		t.setLevel(this);
+		t.setRange(200);
+		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
+		t.setPos(new Vector(25 * scale / 2,13 * scale / 2));
+		t.setTarget(u);
+		camera.add(t);
 	}
 
 	/**

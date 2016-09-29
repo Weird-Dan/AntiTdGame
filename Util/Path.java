@@ -3,9 +3,11 @@ package game.AntiTdGame.Util;
 import java.util.ArrayList;
 
 import engine.Common.Vector;
+import game.AntiTdGame.Level;
 
 public class Path {
 	ArrayList<Vector> nodes = new ArrayList<Vector>();
+	Level level;
 	
 	public Path (ArrayList<Vector> nodes) {
 		this.nodes = nodes;
@@ -42,15 +44,6 @@ public class Path {
 		}
 		
 		return new Vector(x, y);
-	}
-	
-	double distance(Vector v1, Vector v2){
-		double a = (v1.getX() - v2.getY());
-		double b = (v1.getY() - v2.getY());
-		
-		double c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-		
-		return c;
 	}
 	
 	public ArrayList<Vector> getNodes(){

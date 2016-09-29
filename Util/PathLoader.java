@@ -26,8 +26,8 @@ public class PathLoader {
 			while ((sCurrentLine = br.readLine()) != null) {
 				System.out.println(sCurrentLine);
 				String[] coords = sCurrentLine.split(",");
-				double x = Double.parseDouble(coords[0]) * scale;
-				double y = Double.parseDouble(coords[1]) * scale;
+				double x = Double.parseDouble(coords[0]) * scale + scale / 2;
+				double y = Double.parseDouble(coords[1]) * scale + scale / 2;
 				nodes.add(new Vector(x, y));
 			}
 			

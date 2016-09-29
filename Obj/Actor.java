@@ -1,6 +1,8 @@
 package game.AntiTdGame.Obj;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import engine.Common.Vector;
 import engine.Render.Renderable;
@@ -23,11 +25,15 @@ public class Actor implements Renderable {
 	
 	double rotation;
 	
-	double fireRate;
+	int fireRate;
 	
-	int Range;
+	double Range;
 	
 	Actor target;
+	
+	BufferedImage sprite;
+	
+	boolean shooting;
 	
 	//Projectile projectile;
 
@@ -35,6 +41,7 @@ public class Actor implements Renderable {
 	 * Draw to screen
 	 * */
 	public void paint(Graphics g) {
+		
 		
 	}
 
@@ -49,7 +56,8 @@ public class Actor implements Renderable {
 	 * Shoot a projectile at the target
 	 */
 	public void shoot() {
-		
+		shooting = true;
+		//target.takeDamage(1);
 	}
 	
 	/*
@@ -68,5 +76,78 @@ public class Actor implements Renderable {
 	void explode(){
 		level.removeFromLevel(this);
 	}
+	
+	public void setLevel(Level l){
+		level = l;
+	}
 
+	/**
+	 * @return the sprite
+	 */
+	public BufferedImage getSprite() {
+		return sprite;
+	}
+
+	/**
+	 * @param sprite the sprite to set
+	 */
+	public void setSprite(BufferedImage sprite) {
+		this.sprite = sprite;
+	}
+
+	/**
+	 * @return the range
+	 */
+	public double getRange() {
+		return Range;
+	}
+
+	/**
+	 * @param range the range to set
+	 */
+	public void setRange(double range) {
+		Range = range;
+	}
+
+	/**
+	 * @return the damage
+	 */
+	public int getDamage() {
+		return damage;
+	}
+
+	/**
+	 * @param damage the damage to set
+	 */
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	/**
+	 * @return the pos
+	 */
+	public Vector getPos() {
+		return pos;
+	}
+
+	/**
+	 * @param pos the pos to set
+	 */
+	public void setPos(Vector pos) {
+		this.pos = pos;
+	}
+
+	/**
+	 * @return the target
+	 */
+	public Actor getTarget() {
+		return target;
+	}
+
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(Actor target) {
+		this.target = target;
+	}
 }
