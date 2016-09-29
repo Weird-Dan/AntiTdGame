@@ -1,5 +1,6 @@
 package game.AntiTdGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -29,6 +30,7 @@ public class Level implements Camera {
 	public double scale = 32;
 	
 	PathLoader pl = new PathLoader();
+	ArrayList<Unit> units = new ArrayList<Unit>();
 
 	/**
 	 * Initialize Camera
@@ -41,9 +43,8 @@ public class Level implements Camera {
 		// TODO Auto-generated method stub
 
 		cmap = new Map(this.clevel);
-		cmap.setScale(16);
+		cmap.setScale(scale);
 		camera.add(this.cmap);
-		//camera.add(new PathDrawer(path));
 		mn.setTitle("AntiTdGame");
 		
 		path = pl.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
@@ -54,14 +55,14 @@ public class Level implements Camera {
 		u.path = path;
 		u.setLevel(this);
 		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
-		camera.add(u);
+		SpawnUnit(u);
 		
 		Tower t = new Tower();
 		t.setLevel(this);
-		t.setRange(200);
+		t.setRange(3);
 		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
-		t.setPos(new Vector(25 * scale / 2,13 * scale / 2));
-		t.setTarget(u);
+		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
+		t.setLaserColor(Color.green);
 		camera.add(t);
 	}
 
@@ -115,5 +116,22 @@ public class Level implements Camera {
 	
 	public void removeFromLevel(Renderable r){
 		camera.remove(r);
+	}
+	
+	public void SpawnUnit(Unit u){
+		addToLevel(u);
+		units.add(u);
+	}
+	
+	public void KillUnit(Unit u){
+		removeFromLevel(u);
+		units.remove(u);
+	}
+
+	/**
+	 * @return the units
+	 */
+	public ArrayList<Unit> getUnits() {
+		return units;
 	}
 }

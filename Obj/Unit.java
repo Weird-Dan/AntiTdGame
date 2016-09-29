@@ -1,9 +1,5 @@
 package game.AntiTdGame.Obj;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
-import engine.ReadWrite.Read;
 import game.AntiTdGame.Util.Path;
 
 public class Unit extends Actor {
@@ -21,14 +17,6 @@ public class Unit extends Actor {
 	}
 
 	/**
-	 * Draw Unit
-	 */
-	public void paint(Graphics g) {
-		g.drawImage(sprite.getScaledInstance((int) level.scale / 2, (int) level.scale / 2, BufferedImage.SCALE_DEFAULT),
-				(int) (pos.getX() - level.scale / 4), (int) (pos.getY() - level.scale / 4), null);
-	}
-
-	/**
 	 * Update Unit
 	 */
 	public void update() {
@@ -43,6 +31,10 @@ public class Unit extends Actor {
 	 */
 	public long getLifeTime() {
 		return System.currentTimeMillis() - this.CreationTime;
+	}
+	
+	void explode(){
+		level.KillUnit(this);
 	}
 
 }
