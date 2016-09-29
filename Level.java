@@ -28,7 +28,7 @@ public class Level implements Camera {
 	Map cmap;
 
 	String clevel = "src/game/AntiTdGame/res/Map1.png";
-	public boolean debug = true;
+	public boolean debug = false;
 
 	public double scale = 48;
 
@@ -48,7 +48,7 @@ public class Level implements Camera {
 
 		cmap = new Map(this.clevel, scale);
 		cmap.setScale(scale);
-		mn.setScale(2);
+		mn.setScale(1);
 		camera.add(this.cmap);
 		mn.setTitle("AntiTdGame");
 
@@ -61,7 +61,7 @@ public class Level implements Camera {
 		t.setRange(3.5);
 		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
-		t.setLaserColor(Color.green);
+		t.setLaserColor(new Color(0, 255, 0, 128));
 		camera.add(t);
 
 		Unit u = new Unit();
@@ -75,8 +75,8 @@ public class Level implements Camera {
 		Unit u2 = new Unit();
 		u2.path = path;
 		u2.setLevel(this);
-		u2.setSpeed(5);
-		u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		u2.setSpeed(3);
+		u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
 		SpawnUnit(u2);
 	}
 
@@ -98,6 +98,12 @@ public class Level implements Camera {
 			end(); // change to : if (map completed)
 		// cmap.setScale(cmap.getScale());
 		if(mn.isPressed(KeyEvent.VK_S)){
+			Unit u2 = new Unit();
+			u2.path = path;
+			u2.setLevel(this);
+			u2.setSpeed(3);
+			u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
+			SpawnUnit(u2);
 		}
 	}
 
@@ -115,7 +121,7 @@ public class Level implements Camera {
 	 * return the unit closest to the given x,y coordinates, ignoring all the
 	 * units on the ignore array
 	 */
-	public Unit getClosestUnit(float x, float y, Unit[] ingore) {
+	public Unit getClosestUnit(float x, float y, Unit[] ignore) {
 		return null;
 	}
 
