@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.sun.glass.events.KeyEvent;
+
 import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
@@ -26,7 +28,7 @@ public class Level implements Camera {
 	Map cmap;
 
 	String clevel = "src/game/AntiTdGame/res/Map1.png";
-	boolean debug;
+	public boolean debug = true;
 
 	public double scale = 48;
 
@@ -52,13 +54,11 @@ public class Level implements Camera {
 
 		path = PathLoader.LoadPath("src/game/AntiTdGame/res/Map1.path", cmap.getScale());
 
-		if(debug) {
-			camera.add(new PathDrawer(path));
-		}
+		camera.add(new PathDrawer(path, this));
 
 		Tower t = new Tower();
 		t.setLevel(this);
-		t.setRange(10);
+		t.setRange(3.5);
 		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
 		t.setLaserColor(Color.green);
@@ -71,6 +71,13 @@ public class Level implements Camera {
 		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
 		SpawnUnit(u);
 
+
+		Unit u2 = new Unit();
+		u2.path = path;
+		u2.setLevel(this);
+		u2.setSpeed(5);
+		u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		SpawnUnit(u2);
 	}
 
 	/**
@@ -90,6 +97,8 @@ public class Level implements Camera {
 		if (false)
 			end(); // change to : if (map completed)
 		// cmap.setScale(cmap.getScale());
+		if(mn.isPressed(KeyEvent.VK_S)){
+		}
 	}
 
 	/**
