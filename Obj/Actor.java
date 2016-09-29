@@ -51,9 +51,9 @@ public class Actor implements Renderable {
 		int y = (int)(pos.getY() - level.scale / 2 - 8);
 
 		g.setColor(Color.red);
-		g.fillRect(x, y, (int)(level.scale), 4);
+		g.fillRect(x, y, (int)(level.scale), (int)(level.scale/8));
 		g.setColor(Color.green);
-		g.fillRect(x, y, (int)(level.scale * health / 100), 4);
+		g.fillRect(x, y, (int)(level.scale * health / 100), (int)(level.scale/8));
 	}
 
 	/**

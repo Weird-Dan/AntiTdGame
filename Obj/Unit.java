@@ -37,4 +37,18 @@ public class Unit extends Actor {
 		level.KillUnit(this);
 	}
 
+	/**
+	 * @return the speed
+	 */
+	public double getSpeed() {
+		return speed;
+	}
+
+	/**
+	 * @param speed the speed to set
+	 */
+	public void setSpeed(double speed) {
+		this.speed = speed * level.scale / 32;
+	}
+
 }

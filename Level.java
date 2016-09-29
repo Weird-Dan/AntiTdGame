@@ -27,7 +27,7 @@ public class Level implements Camera {
 
 	String clevel = "src/game/AntiTdGame/res/Map1.png";
 
-	public double scale = 32;
+	public double scale = 48;
 
 	PathLoader pl = new PathLoader();
 	ArrayList<Unit> units = new ArrayList<Unit>();
@@ -41,6 +41,8 @@ public class Level implements Camera {
 		// if (clevel==null) this.clevel = "game/AntiTdGame/res/Map1.png";
 		// add objects to camera mby
 		// TODO Auto-generated method stub
+		
+		scale = mn.getHEIGHT() / 16;
 
 		cmap = new Map(this.clevel, scale);
 		cmap.setScale(scale);
@@ -51,12 +53,6 @@ public class Level implements Camera {
 
 		// camera.add(new PathDrawer(path));
 
-		Unit u = new Unit();
-		u.path = path;
-		u.setLevel(this);
-		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
-		SpawnUnit(u);
-
 		Tower t = new Tower();
 		t.setLevel(this);
 		t.setRange(3);
@@ -64,6 +60,14 @@ public class Level implements Camera {
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
 		t.setLaserColor(Color.green);
 		camera.add(t);
+		
+
+		Unit u = new Unit();
+		u.path = path;
+		u.setLevel(this);
+		u.setSpeed(5);
+		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		SpawnUnit(u);
 	}
 
 	/**
