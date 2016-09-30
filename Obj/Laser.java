@@ -22,8 +22,12 @@ public class Laser extends Projectile {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(color);
-		g.drawLine((int) target.pos.getX(), (int) target.pos.getY(), (int) pos.getX(), (int) pos.getY());
+		if(level.getTowers().contains(target) || level.getUnits().contains(target)){
+			g.setColor(color);
+			g.drawLine((int) target.pos.getX(), (int) target.pos.getY(), (int) pos.getX(), (int) pos.getY());
+		}else{
+			level.removeFromLevel(this);
+		}
 	}
 
 	public void update() {
