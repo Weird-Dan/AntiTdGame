@@ -64,7 +64,7 @@ public class Actor implements Renderable {
 	 * Update actor
 	 */
 	public void update() {
-		if (target != null && MathStuff.distance(pos, target.pos) <= this.Range && level.getUnits().contains(target)) {
+		if (target != null && MathStuff.distance(pos, target.pos) <= this.Range && (level.getUnits().contains(target) || level.getTowers().contains(target))) {
 			fire++;
 			if (fire >= fireRate) {
 				fire = 0;

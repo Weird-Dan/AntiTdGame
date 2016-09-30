@@ -12,6 +12,8 @@ import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
 import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
+import game.AntiTdGame.Obj.Unit1;
+import game.AntiTdGame.Obj.Unit2;
 import game.AntiTdGame.Util.Path;
 import engine.Common.Vector;
 import engine.ReadWrite.Read;
@@ -33,6 +35,7 @@ public class Level implements Camera {
 	public double scale = 48;
 
 	ArrayList<Unit> units = new ArrayList<Unit>();
+	ArrayList<Tower> towers = new ArrayList<Tower>();
 
 	/**
 	 * Initialize Camera
@@ -62,22 +65,10 @@ public class Level implements Camera {
 		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
 		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
 		t.setLaserColor(new Color(0, 255, 0, 128));
-		camera.add(t);
+		SpawnTower(t);
 
-		Unit u = new Unit();
-		u.path = path;
-		u.setLevel(this);
-		u.setSpeed(5);
-		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		Unit u = new Unit1(this);
 		SpawnUnit(u);
-
-
-		Unit u2 = new Unit();
-		u2.path = path;
-		u2.setLevel(this);
-		u2.setSpeed(3);
-		u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
-		SpawnUnit(u2);
 	}
 
 	/**
@@ -98,11 +89,7 @@ public class Level implements Camera {
 			end(); // change to : if (map completed)
 		// cmap.setScale(cmap.getScale());
 		if(mn.isPressed(KeyEvent.VK_S)){
-			Unit u2 = new Unit();
-			u2.path = path;
-			u2.setLevel(this);
-			u2.setSpeed(3);
-			u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
+			Unit u2 = new Unit2(this);
 			SpawnUnit(u2);
 		}
 	}
@@ -155,5 +142,19 @@ public class Level implements Camera {
 	 */
 	public ArrayList<Unit> getUnits() {
 		return units;
+	}
+	
+	public void SpawnTower(Tower t){
+		addToLevel(t);
+		towers.add(t);
+	}
+	
+	public void KillTower(Tower t){
+		removeFromLevel(t);
+		towers.remove(t);
+	}
+	
+	public ArrayList<Tower> getTowers(){
+		return towers;
 	}
 }
