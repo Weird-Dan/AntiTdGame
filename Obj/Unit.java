@@ -42,6 +42,13 @@ public class Unit extends Actor {
 		CreationTime += slowdown;
 	}
 
+	/* Ska denna va kvar?
+	public void paint(Graphics g) {
+		
+	}
+	*/
+
+
 	/**
 	 * Get the lifetime of this unit (milliseconds)
 	 */
