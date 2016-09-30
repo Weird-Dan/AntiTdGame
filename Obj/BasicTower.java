@@ -1,0 +1,22 @@
+package game.AntiTdGame.Obj;
+
+import java.awt.Color;
+
+import engine.Common.Vector;
+import engine.ReadWrite.Read;
+import game.AntiTdGame.Level;
+
+public class BasicTower extends Tower {
+	
+	public BasicTower(Level lvl, Vector position){
+		level = lvl;
+		fireRate = 60;
+		setRange(3.5);
+		SH = 1000;
+		health = SH;
+		setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
+		this.pos = position;
+		setLaserColor(new Color(0, 255, 0, 128));
+	}
+
+}

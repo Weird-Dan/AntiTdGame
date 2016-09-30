@@ -1,22 +1,26 @@
 package game.AntiTdGame;
 
-import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.sun.glass.events.KeyEvent;
 
 import engine.Main;
+import engine.Common.Vector;
 import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
+import game.AntiTdGame.Obj.BasicTower;
+import game.AntiTdGame.Obj.IceTower;
+import game.AntiTdGame.Obj.Pos;
 import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
+import game.AntiTdGame.Obj.Unit1;
+import game.AntiTdGame.Obj.Unit2;
 import game.AntiTdGame.Util.Path;
-import engine.Common.Vector;
-import engine.ReadWrite.Read;
-import game.AntiTdGame.map.Map;
-import game.AntiTdGame.Util.PathLoader;;
+import game.AntiTdGame.Util.PathLoader;
+import game.AntiTdGame.map.Map;;
 
 public class Level implements Camera {
 
@@ -32,7 +36,14 @@ public class Level implements Camera {
 
 	public double scale = 48;
 
+	int placerate = 60 * 10;
+	int upt = 0;
+	int sc = 10;
+
+	Random r = new Random();
+
 	ArrayList<Unit> units = new ArrayList<Unit>();
+	ArrayList<Tower> towers = new ArrayList<Tower>();
 
 	/**
 	 * Initialize Camera
@@ -43,7 +54,7 @@ public class Level implements Camera {
 		// if (clevel==null) this.clevel = "game/AntiTdGame/res/Map1.png";
 		// add objects to camera mby
 		// TODO Auto-generated method stub
-		
+
 		scale = mn.getHEIGHT() / 16;
 
 		cmap = new Map(this.clevel, scale);
@@ -56,28 +67,17 @@ public class Level implements Camera {
 
 		camera.add(new PathDrawer(path, this));
 
-		Tower t = new Tower();
-		t.setLevel(this);
-		t.setRange(3.5);
-		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
-		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
-		t.setLaserColor(new Color(0, 255, 0, 128));
-		camera.add(t);
+		/*
+		 * t = new IceTower(this, new Vector(3 * scale + scale / 2, 4 * scale +
+		 * scale / 2)); SpawnTower(t);
+		 */
 
-		Unit u = new Unit();
-		u.path = path;
-		u.setLevel(this);
-		u.setSpeed(5);
-		u.setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		for (int i = 0; i < sc; i++) {
+			RandomSpawnTower();
+		}
+
+		Unit u = new Unit1(this);
 		SpawnUnit(u);
-
-
-		Unit u2 = new Unit();
-		u2.path = path;
-		u2.setLevel(this);
-		u2.setSpeed(3);
-		u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
-		SpawnUnit(u2);
 	}
 
 	/**
@@ -97,14 +97,18 @@ public class Level implements Camera {
 		if (false)
 			end(); // change to : if (map completed)
 		// cmap.setScale(cmap.getScale());
-		if(mn.isPressed(KeyEvent.VK_S)){
-			Unit u2 = new Unit();
-			u2.path = path;
-			u2.setLevel(this);
-			u2.setSpeed(3);
-			u2.setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
+		if (mn.isPressed(KeyEvent.VK_S)) {
+			Unit u2 = new Unit2(this);
 			SpawnUnit(u2);
 		}
+
+		if (upt >= placerate) {
+			upt = 0;
+			RandomSpawnTower();
+		} else {
+			upt++;
+		}
+
 	}
 
 	/**
@@ -155,5 +159,48 @@ public class Level implements Camera {
 	 */
 	public ArrayList<Unit> getUnits() {
 		return units;
+	}
+
+	public void SpawnRandomTower(Tower t) {
+		ArrayList<Pos> ps = cmap.getPlacable();
+		Pos p = ps.get(r.nextInt(ps.size()));
+		cmap.occupy(p.getX(), p.getY());
+		t.setPos(new Vector(p.getX() * scale + (scale / 2), p.getY() * scale + (scale / 2)));
+		SpawnTower(t);
+	}
+
+	public void RandomSpawnTower() {
+		int i = r.nextInt(2);
+		if (i == 1) {
+			SpawnRandomTower(new IceTower(this, new Vector(0, 0)));
+		} else {
+			SpawnRandomTower(new BasicTower(this, new Vector(0, 0)));
+		}
+	}
+
+	public void SpawnTower(Tower t) {
+		addToLevel(t);
+		towers.add(t);
+	}
+
+	public void KillTower(Tower t) {
+		removeFromLevel(t);
+		towers.remove(t);
+		Vector p = t.getPos();
+
+		int x = (int) ((p.getX() / scale) - (scale / 2)), y = (int) ((p.getX() / scale) - (scale / 2));
+		cmap.addPlacable(x, y);
+	}
+
+	public ArrayList<Tower> getTowers() {
+		return towers;
+	}
+
+	public int getMapWidth() {
+		return this.cmap.getWidth();
+	}
+
+	public int getMapHeight() {
+		return this.cmap.getHeight();
 	}
 }
