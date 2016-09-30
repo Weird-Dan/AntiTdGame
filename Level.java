@@ -1,26 +1,26 @@
 package game.AntiTdGame;
 
-
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.sun.glass.events.KeyEvent;
 
 import engine.Main;
+import engine.Common.Vector;
 import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
 import game.AntiTdGame.Obj.BasicTower;
 import game.AntiTdGame.Obj.IceTower;
+import game.AntiTdGame.Obj.Pos;
 import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
 import game.AntiTdGame.Obj.Unit1;
 import game.AntiTdGame.Obj.Unit2;
 import game.AntiTdGame.Util.Path;
-import engine.Common.Vector;
-
-import game.AntiTdGame.map.Map;
-import game.AntiTdGame.Util.PathLoader;;
+import game.AntiTdGame.Util.PathLoader;
+import game.AntiTdGame.map.Map;;
 
 public class Level implements Camera {
 
@@ -36,8 +36,11 @@ public class Level implements Camera {
 
 	public double scale = 48;
 
-	int placerate = 60 * 30;
+	int placerate = 60 * 10;
 	int upt = 0;
+	int sc = 10;
+
+	Random r = new Random();
 
 	ArrayList<Unit> units = new ArrayList<Unit>();
 	ArrayList<Tower> towers = new ArrayList<Tower>();
@@ -64,13 +67,14 @@ public class Level implements Camera {
 
 		camera.add(new PathDrawer(path, this));
 
-		Tower t = new BasicTower(this, new Vector(9 *(scale + scale / 2), 2 *( scale + scale / 2)));
-		SpawnTower(t);
+		/*
+		 * t = new IceTower(this, new Vector(3 * scale + scale / 2, 4 * scale +
+		 * scale / 2)); SpawnTower(t);
+		 */
 
-		t = new IceTower(this, new Vector(5 * scale + scale / 2, 4 * scale + scale / 2));
-		SpawnTower(t);
-		t = new IceTower(this, new Vector(3 * scale + scale / 2, 4 * scale + scale / 2));
-		SpawnTower(t);
+		for (int i = 0; i < sc; i++) {
+			RandomSpawnTower();
+		}
 
 		Unit u = new Unit1(this);
 		SpawnUnit(u);
@@ -100,6 +104,7 @@ public class Level implements Camera {
 
 		if (upt >= placerate) {
 			upt = 0;
+			RandomSpawnTower();
 		} else {
 			upt++;
 		}
@@ -156,6 +161,23 @@ public class Level implements Camera {
 		return units;
 	}
 
+	public void SpawnRandomTower(Tower t) {
+		ArrayList<Pos> ps = cmap.getPlacable();
+		Pos p = ps.get(r.nextInt(ps.size()));
+		cmap.occupy(p.getX(), p.getY());
+		t.setPos(new Vector(p.getX() * scale + (scale / 2), p.getY() * scale + (scale / 2)));
+		SpawnTower(t);
+	}
+
+	public void RandomSpawnTower() {
+		int i = r.nextInt(2);
+		if (i == 1) {
+			SpawnRandomTower(new IceTower(this, new Vector(0, 0)));
+		} else {
+			SpawnRandomTower(new BasicTower(this, new Vector(0, 0)));
+		}
+	}
+
 	public void SpawnTower(Tower t) {
 		addToLevel(t);
 		towers.add(t);
@@ -165,17 +187,19 @@ public class Level implements Camera {
 		removeFromLevel(t);
 		towers.remove(t);
 		Vector p = t.getPos();
-		//int x= p.getX(), y;
+
+		int x = (int) ((p.getX() / scale) - (scale / 2)), y = (int) ((p.getX() / scale) - (scale / 2));
+		cmap.addPlacable(x, y);
 	}
 
 	public ArrayList<Tower> getTowers() {
 		return towers;
 	}
-	
+
 	public int getMapWidth() {
 		return this.cmap.getWidth();
 	}
-	
+
 	public int getMapHeight() {
 		return this.cmap.getHeight();
 	}

@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import engine.Common.Vector;
 import engine.ReadWrite.Read;
 import engine.Render.Renderable;
+import game.AntiTdGame.Obj.Pos;
 
 public class Map implements Renderable {
 
 	Tile[] TileMap;
 
-	ArrayList<pos> placeble = new ArrayList<pos>();
+	ArrayList<Pos> placeble = new ArrayList<Pos>();
 
 	private final String mapPath;
 
@@ -51,7 +52,7 @@ public class Map implements Renderable {
 				TileMap[x * h + y] = cm.getTile(clr, (int) scale);
 
 				if (TileMap[x * h + y].placeable) {
-					placeble.add(new pos(x, y));
+					placeble.add(new Pos(x, y));
 				}
 
 				/*
@@ -100,11 +101,11 @@ public class Map implements Renderable {
 	public int getWidth() {
 		return this.w;
 	}
-	
+
 	public int getHeight() {
 		return this.h;
 	}
-	
+
 	public String getMapPath() {
 		return this.mapPath;
 	}
@@ -117,36 +118,23 @@ public class Map implements Renderable {
 		return this.scale;
 	}
 
-	public ArrayList<pos> getPlacable() {
+	public ArrayList<Pos> getPlacable() {
 		return this.placeble;
 	}
 
 	public void addPlacable(int x, int y) {
 		if (TileMap[x * h + y].placeable)
-			this.placeble.add(new pos(x, y));
+			this.placeble.add(new Pos(x, y));
 	}
 
 	public void occupy(int x, int y) {
-		for (pos p : this.placeble) {
+		ArrayList<Pos> pt = new ArrayList<Pos>();
+		for (Pos p : this.placeble) {
 			if (p.getX() == x && p.getY() == y)
-				this.placeble.remove(p);
+				pt.add(p);
 		}
-	}
-
-	class pos {
-		int x, y;
-
-		public pos(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		public int getX() {
-			return this.x;
-		}
-
-		public int getY() {
-			return this.y;
+		for (Pos p : pt) {
+			this.placeble.remove(p);
 		}
 	}
 
