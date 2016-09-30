@@ -12,7 +12,7 @@ public class Map implements Renderable {
 
 	Tile[] TileMap;
 
-	ArrayList<Tile> placeble = new ArrayList<Tile>();
+	ArrayList<pos> placeble = new ArrayList<pos>();
 
 	private final String mapPath;
 
@@ -50,8 +50,9 @@ public class Map implements Renderable {
 				clr = tmp.getRGB(x, y);
 				TileMap[x * h + y] = cm.getTile(clr, (int) scale);
 
-				if (TileMap[x * h + y].placeable)
-					placeble.add(TileMap[x * h + y]);
+				if (TileMap[x * h + y].placeable) {
+					placeble.add(new pos(x, y));
+				}
 
 				/*
 				 * red = (clr & 0x00ff0000) >> 16; green = (clr & 0x0000ff00) >>
@@ -96,6 +97,14 @@ public class Map implements Renderable {
 
 	}
 
+	public int getWidth() {
+		return this.w;
+	}
+	
+	public int getHeight() {
+		return this.h;
+	}
+	
 	public String getMapPath() {
 		return this.mapPath;
 	}
@@ -108,9 +117,37 @@ public class Map implements Renderable {
 		return this.scale;
 	}
 
-	class posTile extends Tile {
-		Vector pos;
+	public ArrayList<pos> getPlacable() {
+		return this.placeble;
+	}
 
+	public void addPlacable(int x, int y) {
+		if (TileMap[x * h + y].placeable)
+			this.placeble.add(new pos(x, y));
+	}
+
+	public void occupy(int x, int y) {
+		for (pos p : this.placeble) {
+			if (p.getX() == x && p.getY() == y)
+				this.placeble.remove(p);
+		}
+	}
+
+	class pos {
+		int x, y;
+
+		public pos(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		public int getX() {
+			return this.x;
+		}
+
+		public int getY() {
+			return this.y;
+		}
 	}
 
 }

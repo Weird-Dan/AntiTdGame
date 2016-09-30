@@ -1,6 +1,6 @@
 package game.AntiTdGame;
 
-import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -18,7 +18,7 @@ import game.AntiTdGame.Obj.Unit1;
 import game.AntiTdGame.Obj.Unit2;
 import game.AntiTdGame.Util.Path;
 import engine.Common.Vector;
-import engine.ReadWrite.Read;
+
 import game.AntiTdGame.map.Map;
 import game.AntiTdGame.Util.PathLoader;;
 
@@ -36,6 +36,9 @@ public class Level implements Camera {
 
 	public double scale = 48;
 
+	int placerate = 60 * 30;
+	int upt = 0;
+
 	ArrayList<Unit> units = new ArrayList<Unit>();
 	ArrayList<Tower> towers = new ArrayList<Tower>();
 
@@ -48,7 +51,7 @@ public class Level implements Camera {
 		// if (clevel==null) this.clevel = "game/AntiTdGame/res/Map1.png";
 		// add objects to camera mby
 		// TODO Auto-generated method stub
-		
+
 		scale = mn.getHEIGHT() / 16;
 
 		cmap = new Map(this.clevel, scale);
@@ -61,9 +64,9 @@ public class Level implements Camera {
 
 		camera.add(new PathDrawer(path, this));
 
-		Tower t = new BasicTower(this, new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
+		Tower t = new BasicTower(this, new Vector(9 *(scale + scale / 2), 2 *( scale + scale / 2)));
 		SpawnTower(t);
-		
+
 		t = new IceTower(this, new Vector(5 * scale + scale / 2, 4 * scale + scale / 2));
 		SpawnTower(t);
 		t = new IceTower(this, new Vector(3 * scale + scale / 2, 4 * scale + scale / 2));
@@ -90,10 +93,17 @@ public class Level implements Camera {
 		if (false)
 			end(); // change to : if (map completed)
 		// cmap.setScale(cmap.getScale());
-		if(mn.isPressed(KeyEvent.VK_S)){
+		if (mn.isPressed(KeyEvent.VK_S)) {
 			Unit u2 = new Unit2(this);
 			SpawnUnit(u2);
 		}
+
+		if (upt >= placerate) {
+			upt = 0;
+		} else {
+			upt++;
+		}
+
 	}
 
 	/**
@@ -145,18 +155,28 @@ public class Level implements Camera {
 	public ArrayList<Unit> getUnits() {
 		return units;
 	}
-	
-	public void SpawnTower(Tower t){
+
+	public void SpawnTower(Tower t) {
 		addToLevel(t);
 		towers.add(t);
 	}
-	
-	public void KillTower(Tower t){
+
+	public void KillTower(Tower t) {
 		removeFromLevel(t);
 		towers.remove(t);
+		Vector p = t.getPos();
+		//int x= p.getX(), y;
+	}
+
+	public ArrayList<Tower> getTowers() {
+		return towers;
 	}
 	
-	public ArrayList<Tower> getTowers(){
-		return towers;
+	public int getMapWidth() {
+		return this.cmap.getWidth();
+	}
+	
+	public int getMapHeight() {
+		return this.cmap.getHeight();
 	}
 }
