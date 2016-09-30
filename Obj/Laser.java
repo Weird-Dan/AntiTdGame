@@ -9,7 +9,7 @@ import game.AntiTdGame.Level;
 public class Laser extends Projectile {
 
 	final long ct;
-	int lifetime = 50;
+	int lifetime = 100;
 	private Color color;
 
 	public Laser(Actor a, Vector pos, double damage, Level level, Color color) {

@@ -11,10 +11,10 @@ public class IceTower extends Tower {
 	
 	public IceTower(Level lvl, Vector position){
 		level = lvl;
-		fireRate = 20;
+		fireRate = 2;
 		setRange(2);
 		SH = 500;
-		damage = 1;
+		damage = .1;
 		health = SH;
 		setSprite(Read.readImage("src/game/AntiTdGame/res/IceTower.png"));
 		this.pos = position;
@@ -23,7 +23,7 @@ public class IceTower extends Tower {
 	
 	public void shoot(){
 		super.shoot();
-		target.slowdown += 5; 
+		target.slowdown += .5; 
 	}
 
 }

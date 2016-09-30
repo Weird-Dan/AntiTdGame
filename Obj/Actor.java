@@ -25,7 +25,7 @@ public class Actor implements Renderable {
 	 */
 	Vector pos;
 
-	int fireRate = 30;
+	double fireRate = 30;
 	int fire;
 	public double slowdown;
 
