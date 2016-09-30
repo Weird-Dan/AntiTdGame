@@ -8,13 +8,14 @@ import game.AntiTdGame.Level;
 public class Unit2 extends Unit {
 	public Unit2(Level lvl){
 		level = lvl;
-		speed = 4;
+		setSpeed(4);
 		health = 100;
 		canShoot = true;
 		path = level.path;
-		Range = 5;
-		damage = 2;
-		laserColor = Color.red;
+		setRange(2);
+		damage = 1;
+		laserColor = new Color(255, 0, 0, 128);
+		fireRate = 15;
 		setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
 	}
 }

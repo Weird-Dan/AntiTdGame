@@ -15,7 +15,7 @@ import game.AntiTdGame.Util.MathStuff;
  */
 public class Actor implements Renderable {
 
-	final double SH = 100;
+	double SH = 100;
 	double health = SH, damage = 3;
 
 	Level level;
@@ -25,10 +25,9 @@ public class Actor implements Renderable {
 	 */
 	Vector pos;
 
-	double rotation;
-
 	int fireRate = 30;
 	int fire;
+	public double slowdown;
 
 	double Range;
 
@@ -55,7 +54,7 @@ public class Actor implements Renderable {
 				g.setColor(Color.red);
 				g.fillRect(x, y, (int) (level.scale), 4);
 				g.setColor(Color.green);
-				g.fillRect(x, y, (int) (level.scale * health / 100), 4);
+				g.fillRect(x, y, (int) (level.scale * health / SH), 4);
 			}
 		}
 	}
@@ -66,10 +65,16 @@ public class Actor implements Renderable {
 	public void update() {
 		if (target != null && MathStuff.distance(pos, target.pos) <= this.Range && (level.getUnits().contains(target) || level.getTowers().contains(target))) {
 			fire++;
-			if (fire >= fireRate) {
+			if (fire >= fireRate * (slowdown+1)) {
 				fire = 0;
 				shoot();
 			}
+		}
+
+		if(slowdown > 0){
+			slowdown -= .21;
+		}else{
+			slowdown = 0;
 		}
 	}
 

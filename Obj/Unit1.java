@@ -6,7 +6,7 @@ import game.AntiTdGame.Level;
 public class Unit1 extends Unit {
 	public Unit1(Level lvl){
 		level = lvl;
-		speed = 5;
+		setSpeed(5);
 		health = 100;
 		canShoot = false;
 		path = level.path;

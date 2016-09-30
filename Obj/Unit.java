@@ -8,9 +8,10 @@ public class Unit extends Actor {
 	double speed = 5;
 	public Path path;
 	
+	
 	boolean canShoot = true;
 
-	private final long CreationTime;
+	private long CreationTime;
 
 	/**
 	 * Init Unit
@@ -38,13 +39,14 @@ public class Unit extends Actor {
 				}
 			}
 		}
+		CreationTime += slowdown;
 	}
 
 	/**
 	 * Get the lifetime of this unit (milliseconds)
 	 */
 	public long getLifeTime() {
-		return System.currentTimeMillis() - this.CreationTime;
+		return (long) (System.currentTimeMillis() - this.CreationTime);
 	}
 	
 	void explode(){

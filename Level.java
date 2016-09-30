@@ -10,6 +10,8 @@ import engine.Main;
 import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
+import game.AntiTdGame.Obj.BasicTower;
+import game.AntiTdGame.Obj.IceTower;
 import game.AntiTdGame.Obj.Tower;
 import game.AntiTdGame.Obj.Unit;
 import game.AntiTdGame.Obj.Unit1;
@@ -59,12 +61,12 @@ public class Level implements Camera {
 
 		camera.add(new PathDrawer(path, this));
 
-		Tower t = new Tower();
-		t.setLevel(this);
-		t.setRange(3.5);
-		t.setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
-		t.setPos(new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
-		t.setLaserColor(new Color(0, 255, 0, 128));
+		Tower t = new BasicTower(this, new Vector(9 * scale + scale / 2, 2 * scale + scale / 2));
+		SpawnTower(t);
+		
+		t = new IceTower(this, new Vector(5 * scale + scale / 2, 4 * scale + scale / 2));
+		SpawnTower(t);
+		t = new IceTower(this, new Vector(3 * scale + scale / 2, 4 * scale + scale / 2));
 		SpawnTower(t);
 
 		Unit u = new Unit1(this);
