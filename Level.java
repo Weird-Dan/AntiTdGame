@@ -11,13 +11,7 @@ import engine.Common.Vector;
 import engine.Render.Camera;
 import engine.Render.Renderable;
 import game.AntiTdGame.Debug.PathDrawer;
-import game.AntiTdGame.Obj.BasicTower;
-import game.AntiTdGame.Obj.IceTower;
-import game.AntiTdGame.Obj.Pos;
-import game.AntiTdGame.Obj.Tower;
-import game.AntiTdGame.Obj.Unit;
-import game.AntiTdGame.Obj.Unit1;
-import game.AntiTdGame.Obj.Unit2;
+import game.AntiTdGame.Obj.*;
 import game.AntiTdGame.Util.Path;
 import game.AntiTdGame.Util.PathLoader;
 import game.AntiTdGame.map.Map;;
@@ -170,10 +164,12 @@ public class Level implements Camera {
 	}
 
 	public void RandomSpawnTower() {
-		int i = r.nextInt(2);
+		int i = r.nextInt(3);
 		if (i == 1) {
 			SpawnRandomTower(new IceTower(this, new Vector(0, 0)));
-		} else {
+		} else if (i == 2) {
+			SpawnRandomTower(new FireTower(this, new Vector(0, 0)));
+		}else {
 			SpawnRandomTower(new BasicTower(this, new Vector(0, 0)));
 		}
 	}

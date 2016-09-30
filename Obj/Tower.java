@@ -26,7 +26,6 @@ public class Tower extends Actor {
 		
 		xp += 0.017;
 		
-		System.out.println(xp);
 		
 		if(xp >= levelUp){
 			xp = 0;
