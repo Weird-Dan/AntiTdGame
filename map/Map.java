@@ -1,8 +1,8 @@
 package game.AntiTdGame.map;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import engine.Common.Vector;
 import engine.ReadWrite.Read;
@@ -11,6 +11,8 @@ import engine.Render.Renderable;
 public class Map implements Renderable {
 
 	Tile[] TileMap;
+
+	ArrayList<Tile> placeble = new ArrayList<Tile>();
 
 	private final String mapPath;
 
@@ -37,25 +39,28 @@ public class Map implements Renderable {
 		}
 
 		int clr;
-		int red;
-		int green;
-		int blue;
-		int alpha;
 
 		this.w = tmp.getWidth();
 		this.h = tmp.getHeight();
 		TileMap = new Tile[w * h];
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				TileMap[x * h + y] = new Tile();
+
 				// tile = ColorMatcher.getTile(tmp.getRGB);
 				clr = tmp.getRGB(x, y);
-				red = (clr & 0x00ff0000) >> 16;
-				green = (clr & 0x0000ff00) >> 8;
-				blue = clr & 0x000000ff;
-				alpha = (clr & 0xff000000) >>> 24;
-				TileMap[x * h + y].clr = new Color(red, green, blue, alpha);
-				TileMap[x * h + y].img = cm.getScaledImage(clr, (int) scale);
+				TileMap[x * h + y] = cm.getTile(clr, (int) scale);
+
+				if (TileMap[x * h + y].placeable)
+					placeble.add(TileMap[x * h + y]);
+
+				/*
+				 * red = (clr & 0x00ff0000) >> 16; green = (clr & 0x0000ff00) >>
+				 * 8; blue = clr & 0x000000ff; alpha = (clr & 0xff000000) >>>
+				 * 24; TileMap[x * h + y].clr = new Color(red, green, blue,
+				 * alpha); TileMap[x * h + y].img = cm.getScaledImage(clr, (int)
+				 * scale);
+				 */
+
 				/*
 				 * System.out.println("Integer-color-value: " + clr + " at x:" +
 				 * x + " y:" + y); if (red == 143 && green == 63 && blue == 42)
@@ -101,6 +106,11 @@ public class Map implements Renderable {
 
 	public double getScale() {
 		return this.scale;
+	}
+
+	class posTile extends Tile {
+		Vector pos;
+
 	}
 
 }

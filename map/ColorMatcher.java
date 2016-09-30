@@ -12,6 +12,7 @@ public class ColorMatcher {
 
 	HashMap<Integer, String> csmap = new HashMap<>();
 	HashMap<String, BufferedImage> sbmap = new HashMap<>();
+	HashMap<Integer, Ttile> stmap = new HashMap<>();
 
 	/**
 	 * init colorMatcher
@@ -19,10 +20,20 @@ public class ColorMatcher {
 	public ColorMatcher() {
 		// add coralate images
 		csmap.put(-7389398, "src/game/AntiTdGame/res/Placable.png");
+		stmap.put(-7389398, new Ttile(false, true));
+		
 		csmap.put(-5197658, "src/game/AntiTdGame/res/walk.png");
+		stmap.put(-5197658, new Ttile(true, false));
+		
 		csmap.put(-14342875, "src/game/AntiTdGame/res/NoTile.png");
+		stmap.put(-14342875, new Ttile(false, false));
+		
 		csmap.put(-16711936, "src/game/AntiTdGame/res/Spawn.png");
+		stmap.put(-16711936, new Ttile(true, false));
+		
 		csmap.put(-16776961, "src/game/AntiTdGame/res/goal.png");
+		stmap.put(-16776961, new Ttile(true, false));
+
 	}
 
 	public BufferedImage getScaledImage(int i, int scale) {
@@ -68,12 +79,10 @@ public class ColorMatcher {
 	/**
 	 * Create tile from Integer-color-value
 	 */
-	public Tile getTile(int i) {
-		Tile tile = new Tile();
-		tile.img = getImage(i);
-		tile.clr = getColor(i);
-		return tile;
-	}
+	/*
+	 * public Tile getTile(int i) { Tile tile = new Tile(); tile.img =
+	 * getImage(i); tile.clr = getColor(i); return tile; }
+	 */
 
 	/**
 	 * convert integer-color to java.awt color
@@ -86,12 +95,36 @@ public class ColorMatcher {
 		return new Color(red, green, blue, alpha);
 	}
 
-	private class ttle extends Tile {
-		public ttle(Color c, boolean walk, boolean place) {
-			this.clr = c;
+	/**
+	 * create tile from Integer-color-value
+	 */
+	public Tile getTile(int i, int scale) {
+		if (csmap.containsKey(i)) {
+			String s = csmap.get(i);
+			Ttile tpt = stmap.get(i);
+			tpt.setColor(getColor(i));
+			tpt.setImage(getScaledImage(i, scale));
+
+			return tpt;
+		}
+		return null;
+
+	}
+
+	private class Ttile extends Tile {
+		public Ttile(boolean walk, boolean place) {
 			this.walkable = walk;
 			this.placeable = place;
 		}
+
+		public void setImage(BufferedImage img) {
+			this.img = img;
+		}
+
+		public void setColor(Color c) {
+			this.clr = c;
+		}
+
 	}
 
 }
