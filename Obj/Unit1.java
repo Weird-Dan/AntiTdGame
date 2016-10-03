@@ -11,6 +11,6 @@ public class Unit1 extends Unit {
 		health = SH;
 		canShoot = false;
 		path = level.path;
-		setSprite(Read.readImage("src/game/AntiTdGame/res/unit1.png"));
+		setSprite(ImgOperator.ReadDefaultScaledImage("src/game/AntiTdGame/res/unit1.png", (int)level.scale, (int)level.scale));
 	}
 }

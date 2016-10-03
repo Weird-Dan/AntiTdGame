@@ -1,4 +1,4 @@
-package name;
+package game.AntiTdGame.Obj.BuySystem;
 
 public class LightUnit extends Buy{
 	private int speed = 10;

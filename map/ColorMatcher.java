@@ -1,12 +1,11 @@
 package game.AntiTdGame.map;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import engine.ReadWrite.Read;
+import game.AntiTdGame.Obj.ImgOperator;
 
 public class ColorMatcher {
 
@@ -37,7 +36,7 @@ public class ColorMatcher {
 	}
 
 	public BufferedImage getScaledImage(int i, int scale) {
-		return toBufferedImage(getImage(i).getScaledInstance(scale, scale, BufferedImage.SCALE_DEFAULT));
+		return ImgOperator.getDefaultScaledImage(getImage(i), scale, scale);
 	}
 
 	/**
@@ -59,22 +58,7 @@ public class ColorMatcher {
 		return null;
 	}
 
-	public static BufferedImage toBufferedImage(Image img) {
-		if (img instanceof BufferedImage) {
-			return (BufferedImage) img;
-		}
-
-		// Create a buffered image with transparency
-		BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-		// Draw the image on to the buffered image
-		Graphics2D bGr = bimage.createGraphics();
-		bGr.drawImage(img, 0, 0, null);
-		bGr.dispose();
-
-		// Return the buffered image
-		return bimage;
-	}
+	
 
 	/**
 	 * Create tile from Integer-color-value

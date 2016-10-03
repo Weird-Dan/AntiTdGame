@@ -1,4 +1,4 @@
-package name;
+package game.AntiTdGame.Obj.BuySystem;
 
 public class HeavyUnit extends Buy{
 	private int unitCost = 100;

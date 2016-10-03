@@ -14,8 +14,8 @@ public class Unit2 extends Unit {
 		path = level.path;
 		setRange(2);
 		damage = 1;
-		laserColor = new Color(255, 0, 0, 128);
+		laserColor = new Color(255, 0, 0, 32);
 		fireRate = 15;
-		setSprite(Read.readImage("src/game/AntiTdGame/res/unit.png"));
+		setSprite(ImgOperator.ReadDefaultScaledImage("src/game/AntiTdGame/res/unit.png", (int)level.scale, (int)level.scale));
 	}
 }

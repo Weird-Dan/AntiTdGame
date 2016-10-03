@@ -15,7 +15,7 @@ public class FireTower extends Tower {
 		SH = 1000;
 		health = SH;
 		damage = .5;
-		setSprite(Read.readImage("src/game/AntiTdGame/res/FireTower.png"));
+		setSprite(ImgOperator.ReadDefaultScaledImage("src/game/AntiTdGame/res/FireTower.png", (int)level.scale, (int)level.scale));
 		this.pos = position;
 		setLaserColor(new Color(255, 64, 0, 255));
 	}

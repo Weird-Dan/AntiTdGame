@@ -44,12 +44,11 @@ public class Actor implements Renderable {
 	public void paint(Graphics g) {
 		if (pos != null) {
 
-			g.drawImage(sprite.getScaledInstance((int) level.scale, (int) level.scale, BufferedImage.SCALE_DEFAULT),
-					(int) (pos.getX() - level.scale / 2), (int) (pos.getY() - level.scale / 2), null);
+			g.drawImage(sprite, (int) (pos.getX() - level.scale / 2), (int) (pos.getY() - level.scale / 2), null);
 
 			if (health != SH) {
 				int x = (int) (pos.getX() - level.scale / 2);
-				int y = (int) (pos.getY() - level.scale / 2 - 8);
+				int y = (int) (pos.getY() + level.scale / 2 + 1);
 
 				g.setColor(Color.red);
 				g.fillRect(x, y, (int) (level.scale), 4);
@@ -63,17 +62,18 @@ public class Actor implements Renderable {
 	 * Update actor
 	 */
 	public void update() {
-		if (target != null && MathStuff.distance(pos, target.pos) <= this.Range && (level.getUnits().contains(target) || level.getTowers().contains(target))) {
+		if (target != null && MathStuff.distance(pos, target.pos) <= this.Range
+				&& (level.getUnits().contains(target) || level.getTowers().contains(target))) {
 			fire++;
-			if (fire >= fireRate * (slowdown+1)) {
+			if (fire >= fireRate * (slowdown + 1)) {
 				fire = 0;
 				shoot();
 			}
 		}
 
-		if(slowdown > 0){
+		if (slowdown > 0) {
 			slowdown -= .21;
-		}else{
+		} else {
 			slowdown = 0;
 		}
 	}

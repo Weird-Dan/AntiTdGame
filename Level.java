@@ -185,6 +185,7 @@ public class Level implements Camera {
 		Vector p = t.getPos();
 
 		int x = (int) ((p.getX() / scale) - (scale / 2)), y = (int) ((p.getX() / scale) - (scale / 2));
+		System.out.println("remove x:"+x+" y:"+y);
 		cmap.addPlacable(x, y);
 	}
 

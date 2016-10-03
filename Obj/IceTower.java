@@ -16,7 +16,7 @@ public class IceTower extends Tower {
 		SH = 500;
 		damage = .1;
 		health = SH;
-		setSprite(Read.readImage("src/game/AntiTdGame/res/IceTower.png"));
+		setSprite(ImgOperator.ReadDefaultScaledImage("src/game/AntiTdGame/res/IceTower.png", (int)level.scale, (int)level.scale));
 		this.pos = position;
 		setLaserColor(new Color(0, 128, 255, 128));
 	}

@@ -14,7 +14,7 @@ public class BasicTower extends Tower {
 		setRange(3.5);
 		SH = 1000;
 		health = SH;
-		setSprite(Read.readImage("src/game/AntiTdGame/res/Tower1.png"));
+		setSprite(ImgOperator.ReadDefaultScaledImage("src/game/AntiTdGame/res/Tower1.png", (int)level.scale, (int)level.scale));
 		this.pos = position;
 		setLaserColor(new Color(0, 255, 0, 128));
 	}

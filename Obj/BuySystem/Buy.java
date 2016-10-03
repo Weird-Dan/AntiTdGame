@@ -1,4 +1,4 @@
-package name;
+package game.AntiTdGame.Obj.BuySystem;
 
 import java.util.ArrayList;
 import java.util.Scanner;
